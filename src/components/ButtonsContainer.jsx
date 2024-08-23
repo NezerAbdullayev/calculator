@@ -6,51 +6,45 @@ import { AiOutlinePercentage } from 'react-icons/ai';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
-function ButtonsContainer({
-    darkMode,
-    display,
-    history,
-    result,
-    setDisplay,
-    setHistory,
-}) {
+function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
     function handleClickNumber(e) {
         const curToken = e.target.name;
-        // control
+        // control token
         if (!curToken) return;
 
-        setDisplay((display) => [...display, curToken]);
+        setInput((input) => [...input, curToken]);
     }
 
     function handleOperatorClick(e) {
         const curOperator = e.target.name;
-
+        // control operator
+        if (!curOperator) return;
+        // operators
         const operators = ['+', '-', '*', '/', '%'];
 
-        const lastCharacter = display.slice(-1);
+        // return if the first token is an operator
+        if (input.length === 0) return;
 
-        if (lastCharacter[0] === curOperator || lastCharacter.length === 0)
-            return;
+        // cur input last token
+        const lastCharacter = input.slice(-1);
 
-        setDisplay((display) =>
+        // if last token =current token  return
+        if (lastCharacter[0] === curOperator) return;
+
+        // if the operator is present change ,if not insert operator
+        setInput((input) =>
             operators.includes(lastCharacter[0])
-                ? display.slice(0, -1).concat(curOperator)
-                : display.concat(curOperator)
+                ? input.slice(0, -1).concat(curOperator)
+                : input.concat(curOperator)
         );
     }
 
-    // function handleClickToken(e) {
-    //     const curToken = e.target.value;
-    //     if (!curToken) return;
-    //     setDisplay((display) => [...display, curToken]);
-    // }
-
     function handleClearBtn() {
-        setDisplay('');
+        setInput('');
     }
 
     function handleBackpaceBtn() {
-        setDisplay((display) => display.slice(0, -1));
+        setInput((input) => input.slice(0, -1));
     }
 
     function handleCalculateBtn() {}

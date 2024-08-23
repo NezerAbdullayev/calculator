@@ -1,5 +1,7 @@
 
 function Input({ type, darkMode,value }) {
+    // string input value
+    const stringInputValue=value.toString().replaceAll(",","")
 
     let classname ='mb-4 w-full bg-transparent px-2 text-end text-stone-50';
 
@@ -15,7 +17,7 @@ function Input({ type, darkMode,value }) {
     return (
         <input
             type={type}
-            value={value.toString().replaceAll(",","") || 0 }
+            value={stringInputValue || 0 }
             className={classname}
             onChange={()=>{return}}
         />

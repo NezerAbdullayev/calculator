@@ -10,47 +10,40 @@ import Input from './components/Input';
 import { evalFn } from './eval';
 
 function App() {
-    const [display, setDisplay] = useState([]);
+    // state
+    const [input, setInput] = useState([]);
     const [history, setHistory] = useState([]);
     const [darkMode, setDarkMode] = useState(false);
 
-    let result = calculate(display);
 
-    function calculate(display) {
-        if (!display) return;
+    let result = calculate(input);
+
+    function calculate(input) {
+        if (!input) return;
         
         // convert to a number
         let convertArray = [];
         let number = '';
         let result;
     
-        for (let i = 0; i < display.length; i++) {
-            if (!isNaN(display[i]) || display[i] === '.') {
-                number +=display[i];
+        for (let i = 0; i < input.length; i++) {
+            if (!isNaN(input[i]) || input[i] === '.') {
+                number +=input[i];
             } else {
                 if (number) {
                     convertArray.push(Number(number));
                     number = '';
                 }
-                convertArray.push(display[i]);
+                convertArray.push(input[i]);
             }
         }
 
         if (number) {
             convertArray.push(Number(number));
         }
-
-        console.log(convertArray)
-        //  const  result= evalFn(convertArray)
-        // return result
-
-
         if(convertArray.length>2)
           result= evalFn(convertArray);
-        
-         
 
-         console.log(result)
          return result
     }
 
@@ -71,15 +64,15 @@ function App() {
                         darkMode={darkMode}
                         value={result || 0}
                     />
-                    <Input type="result" darkMode={darkMode} value={display} />
+                    <Input type="result" darkMode={darkMode} value={input} />
                 </div>
                 {/* inputs container  end*/}
 
                 {/* buttons */}
                 <ButtonsContainer
                     darkMode={darkMode}
-                    display={display}
-                    setDisplay={setDisplay}
+                    input={input}
+                    setInput={setInput}
                     setHistory={setHistory}
                     history={history}
                     result={result}

@@ -3,7 +3,7 @@ export function evalFn(calcArray) {
     const operators = [];
     const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2 };
 
-    calcArray.forEach((token) => {
+    calcArray?.forEach((token) => {
         processToken(token);
     });
 

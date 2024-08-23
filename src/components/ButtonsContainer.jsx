@@ -6,40 +6,52 @@ import { AiOutlinePercentage } from 'react-icons/ai';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
-function ButtonsContainer({ darkMode,display,history,result , setDisplay,setHistory }) {
-
-
+function ButtonsContainer({
+    darkMode,
+    display,
+    history,
+    result,
+    setDisplay,
+    setHistory,
+}) {
     function handleClickNumber(e) {
-        const curValue = e.target.name;
+        const curToken = e.target.name;
         // control
-        if (!curValue) return;
+        if (!curToken) return;
 
-        setDisplay((display) => display + curValue);
+        setDisplay((display) => [...display, curToken]);
     }
 
     function handleOperatorClick(e) {
         const curOperator = e.target.name;
 
-        const operators = ['+ ', '- ', '* ', '/ ', '% '];
+        const operators = ['+', '-', '*', '/', '%'];
 
-        const lastCharacter = display.slice(-2);
+        const lastCharacter = display.slice(-1);
 
-        if (lastCharacter === curOperator || lastCharacter === ' ') return;
+        if (lastCharacter[0] === curOperator || lastCharacter.length === 0)
+            return;
 
         setDisplay((display) =>
-            operators.includes(lastCharacter)
-                ? display.slice(0, -2).concat(curOperator)
-                : display + ' ' + curOperator
+            operators.includes(lastCharacter[0])
+                ? display.slice(0, -1).concat(curOperator)
+                : display.concat(curOperator)
         );
     }
 
+    // function handleClickToken(e) {
+    //     const curToken = e.target.value;
+    //     if (!curToken) return;
+    //     setDisplay((display) => [...display, curToken]);
+    // }
+
     function handleClearBtn() {
-        setHistory(history=>[...history,{result,math:display}])
-        setDisplay("")
-        console.log(history)
+        setDisplay('');
     }
 
-    function handleBackpaceBtn() {}
+    function handleBackpaceBtn() {
+        setDisplay((display) => display.slice(0, -1));
+    }
 
     function handleCalculateBtn() {}
 
@@ -54,12 +66,12 @@ function ButtonsContainer({ darkMode,display,history,result , setDisplay,setHist
                 onClick={handleToggleAdvancedBtn}
             />
             <Button
-                name="% "
+                name="%"
                 value={<AiOutlinePercentage />}
                 onClick={handleOperatorClick}
             />
             <Button
-                name="/ "
+                name="/"
                 value="/"
                 onClick={handleOperatorClick}
                 colorBlue={true}
@@ -70,7 +82,7 @@ function ButtonsContainer({ darkMode,display,history,result , setDisplay,setHist
             <Button name="8" value="8" onClick={handleClickNumber} />
             <Button name="9" value="9" onClick={handleClickNumber} />
             <Button
-                name="* "
+                name="*"
                 value="*"
                 onClick={handleOperatorClick}
                 colorBlue={true}
@@ -81,7 +93,7 @@ function ButtonsContainer({ darkMode,display,history,result , setDisplay,setHist
             <Button name="5" value="5" onClick={handleClickNumber} />
             <Button name="6" value="6" onClick={handleClickNumber} />
             <Button
-                name="- "
+                name="-"
                 value="-"
                 onClick={handleOperatorClick}
                 colorBlue={true}
@@ -92,7 +104,7 @@ function ButtonsContainer({ darkMode,display,history,result , setDisplay,setHist
             <Button name="2" value="2" onClick={handleClickNumber} />
             <Button name="3" value="3" onClick={handleClickNumber} />
             <Button
-                name="+ "
+                name="+"
                 value="+"
                 onClick={handleOperatorClick}
                 colorBlue={true}

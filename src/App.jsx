@@ -6,15 +6,11 @@ import ButtonsContainer from './components/ButtonsContainer';
 import Icons from './components/Icons';
 import Input from './components/Input';
 
-
-
 // import eval fn
 import { evalFn } from './eval';
 
-
-
 function App() {
-    const [display, setDisplay] = useState('');
+    const [display, setDisplay] = useState([]);
     const [history, setHistory] = useState([]);
     const [darkMode, setDarkMode] = useState(false);
 
@@ -22,14 +18,42 @@ function App() {
 
     function calculate(display) {
         if (!display) return;
+        
         // convert to a number
-        const convertArray = display?.split(' ').map((token) => {
-            if (!isNaN(token)) return Number(token);
-            return token;
-        });
+        let convertArray = [];
+        let number = '';
+        let result;
+    
+        for (let i = 0; i < display.length; i++) {
+            if (!isNaN(display[i]) || display[i] === '.') {
+                number +=display[i];
+            } else {
+                if (number) {
+                    convertArray.push(Number(number));
+                    number = '';
+                }
+                convertArray.push(display[i]);
+            }
+        }
 
-        if (convertArray.length > 1) return evalFn(convertArray);
+        if (number) {
+            convertArray.push(Number(number));
+        }
+
+        console.log(convertArray)
+        //  const  result= evalFn(convertArray)
+        // return result
+
+
+        if(convertArray.length>2)
+          result= evalFn(convertArray);
+        
+         
+
+         console.log(result)
+         return result
     }
+
 
     return (
         <div

@@ -15,7 +15,7 @@ function Input({ type, darkMode,value }) {
     return (
         <input
             type={type}
-            value={value || 0}
+            value={value.toString().replaceAll(",","") || 0 }
             className={classname}
             onChange={()=>{return}}
         />

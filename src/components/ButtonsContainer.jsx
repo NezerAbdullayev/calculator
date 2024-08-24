@@ -10,7 +10,9 @@ function ButtonsContainer({ input, history, setInput, setHistory,result }) {
     function handleClickNumber(e) {
         const curToken = e.target.name;
         // control token
-        if (!curToken) return;
+        if (!curToken || input.slice(-1)[0]==="%") return;
+
+        console.log( input.slice(-1))
 
         setInput((input) => [...input, curToken]);
     }

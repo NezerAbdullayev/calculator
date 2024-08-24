@@ -5,7 +5,7 @@ import Button from './Button';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
-function ButtonsContainer({ input, history, setInput, setHistory }) {
+function ButtonsContainer({ input, history, setInput, setHistory,result }) {
 
     function handleClickNumber(e) {
         const curToken = e.target.name;
@@ -50,9 +50,11 @@ function ButtonsContainer({ input, history, setInput, setHistory }) {
         setInput((input) => input.slice(0, -1));
     }
 
-    function handleCalculateBtn() {
-        // !1 reverse et inputlari
-        // !2 history at deyeri
+    function handleEqualBtn() {
+        setHistory(history=>[...history,{input,result}])
+        setInput([result.toString()])
+        console.log(2)
+        console.log(history)
         
     }
 
@@ -119,7 +121,7 @@ function ButtonsContainer({ input, history, setInput, setHistory }) {
             <Button name="." value="." onClick={handleClickNumber} />
             <Button name="0" value="0" onClick={handleClickNumber} />
             <Button value={<FaBackspace />} onClick={handleBackpaceBtn} />
-            <Button value="=" onClick={handleCalculateBtn} color="blue" />
+            <Button value="=" onClick={handleEqualBtn} color="blue" />
         </div>
     );
 }

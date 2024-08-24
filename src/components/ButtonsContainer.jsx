@@ -6,7 +6,8 @@ import { AiOutlinePercentage } from 'react-icons/ai';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
-function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
+function ButtonsContainer({ input, history, setInput, setHistory }) {
+
     function handleClickNumber(e) {
         const curToken = e.target.name;
         // control token
@@ -54,21 +55,23 @@ function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
     return (
         <div className="grid h-full max-h-[50%] w-full flex-1 grid-cols-4 grid-rows-5 gap-4">
             {/* row 1 */}
-            <Button value="c" onClick={handleClearBtn} />
+            <Button value="c" onClick={handleClearBtn} color="gray" />
             <Button
                 value={<PiPlusMinusBold />}
                 onClick={handleToggleAdvancedBtn}
+                color="gray"
             />
             <Button
                 name="%"
                 value={<AiOutlinePercentage />}
                 onClick={handleOperatorClick}
+                color="gray"
             />
             <Button
                 name="/"
                 value="/"
                 onClick={handleOperatorClick}
-                colorBlue={true}
+                color="blue"
             />
 
             {/* row 2 */}
@@ -79,7 +82,7 @@ function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
                 name="*"
                 value="*"
                 onClick={handleOperatorClick}
-                colorBlue={true}
+                color="blue"
             />
 
             {/* row 3 */}
@@ -90,7 +93,7 @@ function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
                 name="-"
                 value="-"
                 onClick={handleOperatorClick}
-                colorBlue={true}
+                color="blue"
             />
 
             {/* row 4 */}
@@ -101,14 +104,14 @@ function ButtonsContainer({ darkMode, input, history, setInput, setHistory }) {
                 name="+"
                 value="+"
                 onClick={handleOperatorClick}
-                colorBlue={true}
+                color="blue"
             />
 
             {/* row 5 */}
             <Button name="." value="." onClick={handleClickNumber} />
             <Button name="0" value="0" onClick={handleClickNumber} />
             <Button value={<FaBackspace />} onClick={handleBackpaceBtn} />
-            <Button value="=" onClick={handleCalculateBtn} colorBlue={true} />
+            <Button value="=" onClick={handleCalculateBtn} color="blue" />
         </div>
     );
 }

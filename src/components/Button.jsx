@@ -1,4 +1,4 @@
-function Button({ name, onClick, value, color}) {
+function Button({ name, onClick, value, color,}) {
     let classnames=" flex h-full items-center justify-center rounded-3xl text-2xl transition-all  "
 
     switch (color) {

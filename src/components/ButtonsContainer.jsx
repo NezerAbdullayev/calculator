@@ -2,7 +2,6 @@
 import Button from './Button';
 
 // buttons
-import { AiOutlinePercentage } from 'react-icons/ai';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
@@ -21,20 +20,23 @@ function ButtonsContainer({ input, history, setInput, setHistory }) {
         // control operator
         if (!curOperator) return;
         // operators
-        const operators = ['+', '-', '*', '/', '%'];
+        const operators = ['+', '-', '*', '/'];
 
         // return if the first token is an operator
         if (input.length === 0) return;
-
+        
         // cur input last token
-        const lastCharacter = input.slice(-1);
+        const lastCharacter = input.slice(-1)[0];
+
+        // checking for interest operator
+        if(input.slice(-2)[0] === "%" && curOperator === "%")return;
 
         // if last token =current token  return
-        if (lastCharacter[0] === curOperator) return;
+        if (lastCharacter === curOperator) return;
 
         // if the operator is present change ,if not insert operator
         setInput((input) =>
-            operators.includes(lastCharacter[0])
+            operators.includes(lastCharacter)
                 ? input.slice(0, -1).concat(curOperator)
                 : input.concat(curOperator)
         );
@@ -48,22 +50,28 @@ function ButtonsContainer({ input, history, setInput, setHistory }) {
         setInput((input) => input.slice(0, -1));
     }
 
-    function handleCalculateBtn() {}
+    function handleCalculateBtn() {
+        // !1 reverse et inputlari
+        // !2 history at deyeri
+        
+    }
 
-    function handleToggleAdvancedBtn() {}
+    function handleHistoryBtnClick() { 
+        // ? ya history button ya da kok alti ve s kimi riyazi emeller elave edecem 
+    }
 
     return (
         <div className="grid h-full max-h-[50%] w-full flex-1 grid-cols-4 grid-rows-5 gap-4">
             {/* row 1 */}
             <Button value="c" onClick={handleClearBtn} color="gray" />
             <Button
-                value={<PiPlusMinusBold />}
-                onClick={handleToggleAdvancedBtn}
+                value="🕒"
+                onClick={handleHistoryBtnClick}
                 color="gray"
             />
             <Button
                 name="%"
-                value={<AiOutlinePercentage />}
+                value="%"
                 onClick={handleOperatorClick}
                 color="gray"
             />

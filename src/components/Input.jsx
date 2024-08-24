@@ -14,12 +14,18 @@ function Input({ type,value }) {
             break;
     }
 
+
+    function handleChange(){
+        return
+    }
+
     return (
         <input
             type={type}
             value={stringInputValue || 0 }
+            disabled
             className={classname}
-            onChange={()=>{return}}
+            onChange={handleChange}
         />
     );
 }

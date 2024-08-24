@@ -1,4 +1,42 @@
+
+export function calculate(input) {
+    // debugger;
+   if (!input) return;
+
+   // convert to a number
+   let convertArray = [];
+   let number = '';
+   let result;
+
+   for (let i = 0; i < input.length; i++) {
+       if(input[i]==="%"){
+           convertArray.push(Number(number)/100)
+           number=""
+           continue;
+       }
+       if (!isNaN(input[i]) || input[i] === '.') {
+           number += input[i];
+       } else {
+           if (number) {
+               convertArray.push(Number(number));
+               number = '';
+           }
+           convertArray.push(input[i]);
+       }
+   }
+
+   if (number) {
+       convertArray.push(Number(number));
+   }
+   if (convertArray.length > 0) result = evalFn(convertArray);
+
+   return result;
+
+}
+
+
 export function evalFn(calcArray) {
+    // debugger;
     const numbers = [];
     const operators = [];
     const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2 };
@@ -11,8 +49,8 @@ export function evalFn(calcArray) {
     finalizeCalculation();
 
     function applyOperator() {
-        const operator = operators.pop(); //-["+","/"]
-        const right = numbers.pop(); //[20,10,10]
+        const operator = operators.pop();
+        const right = numbers.pop(); 
         const left = numbers.pop();
         numbers.push(performOperation(operator, left, right));
     }
@@ -27,8 +65,6 @@ export function evalFn(calcArray) {
                 return left * right;
             case '/':
                 return left / right;
-            case '%':
-                return right + (left / 100);
             default:
                 throw new Error(`Unknown operator: ${operator}`);
         }
@@ -40,7 +76,7 @@ export function evalFn(calcArray) {
         } else if (['+', '-', '*', '/', '%'].includes(token)) {
             while (
                 operators.length &&
-                precedence[operators[operators.length - 1]] >= precedence[token] //2  1
+                precedence[operators[operators.length - 1]] >= precedence[token] 
             ) {
                 applyOperator();
             }
@@ -56,3 +92,4 @@ export function evalFn(calcArray) {
 
     return numbers[0];
 }
+

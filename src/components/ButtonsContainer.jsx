@@ -15,6 +15,8 @@ function ButtonsContainer({
     function handleClickNumber(e) {
         const curToken = e.target.name;
 
+        console.log(input)
+
         // last token
         const lastInputToken = input?.slice(-1)[0];
         // Skip if token is empty or last is "%"
@@ -70,9 +72,16 @@ function ButtonsContainer({
             input?.some((token) => operators.includes(token));
         if (!checkForOperator) return;
 
-        const id = Math.floor(Math.random() * 9999);
-        setHistory((history) => [...history, { id, input, result }]);
-        setInput([result.toString()]);
+        // new id
+        const newId = Math.floor(Math.random() * 9999);
+        // insert history
+        setHistory((history) => [...history, { id:newId, input, result }]);
+
+
+        // reverse string array
+        const arrayResult=result.toString().split("");
+
+        setInput([...arrayResult]);
     }
 
     return (

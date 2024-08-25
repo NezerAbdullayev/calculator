@@ -4,16 +4,30 @@ import Button from './Button';
 // buttons
 import { FaBackspace } from 'react-icons/fa';
 
-function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) {
-
+function ButtonsContainer({
+    input,
+    setInput,
+    setHistory,
+    result,
+    onShowHistory,
+}) {
+    // number click function
     function handleClickNumber(e) {
         const curToken = e.target.name;
-        // control token
-        if (!curToken || input.slice(-1)[0]==="%") return;
+
+        // last token
+        const lastInputToken = input?.slice(-1)[0];
+        // Skip if token is empty or last is "%"
+        if (!curToken || lastInputToken === '%') return;
+        // Prevent starting input with a decimal point if the input is empty
+        if (input.length === 0 && curToken === '.') return;
+        // Prevent adding consecutive decimal points
+        if (lastInputToken === '.' && curToken === '.') return;
 
         setInput((input) => [...input, curToken]);
     }
 
+    // operator click function
     function handleOperatorClick(e) {
         const curOperator = e.target.name;
         // control operator
@@ -23,19 +37,19 @@ function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) 
 
         // return if the first token is an operator
         if (input.length === 0) return;
-        
+
         // cur input last token
         const lastCharacter = input.slice(-1)[0];
 
         // checking for interest operator
-        if(input.slice(-2)[0] === "%" && curOperator === "%")return;
+        if (input.slice(-2)[0] === '%' && curOperator === '%') return;
 
         // if last token =current token  return
         if (lastCharacter === curOperator) return;
 
         // Replace the operator or, if there's a decimal point, change it; otherwise, insert the operator.
         setInput((input) =>
-            operators.includes(lastCharacter) || lastCharacter=== "."
+            operators.includes(lastCharacter) || lastCharacter === '.'
                 ? input.slice(0, -1).concat(curOperator)
                 : input.concat(curOperator)
         );
@@ -49,26 +63,23 @@ function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) 
         setInput((input) => input.slice(0, -1));
     }
 
-    
     function handleEqualBtn() {
-        const operators=['+', '-', '*', '/',"%"]
-         const checkForOperator= input.length>0  && input?.some(token=>operators.includes(token)) 
-        if(!checkForOperator ) return
+        const operators = ['+', '-', '*', '/', '%'];
+        const checkForOperator =
+            input.length > 0 &&
+            input?.some((token) => operators.includes(token));
+        if (!checkForOperator) return;
 
-        const id=Math.floor(Math.random()*9999)
-        setHistory(history=>[...history,{id,input,result,}])
-        setInput([result.toString()])
+        const id = Math.floor(Math.random() * 9999);
+        setHistory((history) => [...history, { id, input, result }]);
+        setInput([result.toString()]);
     }
 
     return (
         <div className="grid h-full max-h-[50%] w-full flex-1 grid-cols-4 grid-rows-5 gap-4">
             {/* row 1 */}
             <Button value="c" onClick={handleClearBtn} color="gray" />
-            <Button
-                value="🕒"
-                onClick={onShowHistory}
-                color="gray"
-            />
+            <Button value="🕒" onClick={onShowHistory} color="gray" />
             <Button
                 name="%"
                 value="%"

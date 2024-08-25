@@ -15,7 +15,7 @@ function App() {
     const [input, setInput] = useState([]);
     const [history, setHistory] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(true);
-    const [isHistory, setIsHistory] = useState(true);
+    const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
 
     let result = calculate(input);
@@ -34,12 +34,22 @@ function App() {
     function handleLightMode() {
         setIsDarkMode(false);
     }
+
     // history button functions
     function handleHiddenHistory() {
-        setIsHistory(false);
+        setIsHistoryOpen(false);
     }
     function handleShowHistory(){
-        setIsHistory(true)
+        setIsHistoryOpen(true)
+    }
+
+
+    // handle history item click
+    function handleHistoryItemClick(id){
+        const curClickHistoryItem=history.filter(token=>token.id === id)
+        if(!curClickHistoryItem) return
+
+        setInput(curClickHistoryItem[0].input)
     }
 
     return (
@@ -65,7 +75,7 @@ function App() {
                 {/* inputs container  end*/}
 
                 {/* history */}
-                <History history={history} onCloseHistory={handleHiddenHistory}  isHistory={isHistory} />
+                <History history={history} onCloseHistory={handleHiddenHistory}  isHistoryOpen={isHistoryOpen} onHistoryItemClick={handleHistoryItemClick} />
 
                 {/* buttons */}
                 <ButtonsContainer

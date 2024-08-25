@@ -7,7 +7,7 @@ function Button({ name, onClick, value, color,}) {
             break;
 
         case 'gray':
-            classnames +=" bg-white transition-all text-black bg-[#d2d3da] hover:bg-[#b4b6bded] hover:bg-stone-50 dark:bg-[#4f505f] dark:hover:bg-[#606375]  dark:text-white "
+            classnames +=" transition-all text-black bg-[#d2d3da] hover:bg-[#b4b6bded] hover:bg-stone-50 dark:bg-[#4f505f] dark:hover:bg-[#606375]  dark:text-white "
             break;
 
         default:

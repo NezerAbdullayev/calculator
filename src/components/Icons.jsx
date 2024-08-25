@@ -7,7 +7,7 @@ function Icons({ handleDarkMode, handleLightMode }) {
             className={`mb-auto flex h-[10%] justify-center justify-self-start`}
         >
             {/* icon container */}
-            <div className="relative flex h-[32px] w-[72px] items-center justify-between rounded-2xl bg-stone-50 px-1 transition-all dark:bg-stone-600">
+            <div className="relative flex h-[32px] w-[72px] items-center justify-between rounded-2xl bg-[#1c89e330] px-1 transition-all dark:bg-stone-600">
                 <WiDaySunny
                     className="relative z-10 cursor-pointer text-2xl text-blue-500"
                     onClick={handleDarkMode}

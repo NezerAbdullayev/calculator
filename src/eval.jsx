@@ -39,7 +39,7 @@ export function evalFn(calcArray) {
     // debugger;
     const numbers = [];
     const operators = [];
-    const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2 };
+    const precedence = { '+': 1, '-': 1, '*': 2, '÷': 2, '%': 2 };
 
     calcArray?.forEach((token) => {
         processToken(token);
@@ -63,7 +63,7 @@ export function evalFn(calcArray) {
                 return left - right;
             case '*':
                 return left * right;
-            case '/':
+            case '÷':
                 return left / right;
             default:
                 throw new Error(`Unknown operator: ${operator}`);
@@ -73,7 +73,7 @@ export function evalFn(calcArray) {
     function processToken(token) {
         if (typeof token === 'number') {
             numbers.push(token);
-        } else if (['+', '-', '*', '/', '%'].includes(token)) {
+        } else if (['+', '-', '*', '÷', '%'].includes(token)) {
             while (
                 operators.length &&
                 precedence[operators[operators.length - 1]] >= precedence[token] 

@@ -33,7 +33,7 @@ function ButtonsContainer({
         // control operator
         if (!curOperator) return;
         // operators
-        const operators = ['+', '-', '*', '/'];
+        const operators = ['+', '-', '*', '÷'];
 
         // return if the first token is an operator
         if (input.length === 0) return;
@@ -64,7 +64,7 @@ function ButtonsContainer({
     }
 
     function handleEqualBtn() {
-        const operators = ['+', '-', '*', '/', '%'];
+        const operators = ['+', '-', '*', '÷', '%'];
 
         // Check if the input contains any operators
         const checkForOperator =
@@ -72,7 +72,7 @@ function ButtonsContainer({
             input?.some((token) => operators.includes(token)) 
 
         // Check if the last character is an operator
-        const isLastCharacterOperator=['+', '-', '*', '/'].includes(input.slice(-1)[0]);
+        const isLastCharacterOperator=['+', '-', '*', '÷'].includes(input.slice(-1)[0]);
 
         if (!checkForOperator || isLastCharacterOperator) return;
 
@@ -99,7 +99,7 @@ function ButtonsContainer({
                 color="gray"
             />
             <Button
-                name="/"
+                name="÷"
                 value="÷"
                 onClick={handleOperatorClick}
                 color="blue"

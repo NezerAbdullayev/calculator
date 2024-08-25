@@ -52,7 +52,7 @@ function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) 
     
     function handleEqualBtn() {
         const operators=['+', '-', '*', '/',"%"]
-         const checkForOperator= input?.some(token=>operators.includes(token)) 
+         const checkForOperator= input.length>0  && input?.some(token=>operators.includes(token)) 
         if(!checkForOperator ) return
 
         const id=Math.floor(Math.random()*9999)

@@ -15,8 +15,6 @@ function ButtonsContainer({
     function handleClickNumber(e) {
         const curToken = e.target.name;
 
-        console.log(input)
-
         // last token
         const lastInputToken = input?.slice(-1)[0];
         // Skip if token is empty or last is "%"
@@ -67,16 +65,21 @@ function ButtonsContainer({
 
     function handleEqualBtn() {
         const operators = ['+', '-', '*', '/', '%'];
+
+        // Check if the input contains any operators
         const checkForOperator =
             input.length > 0 &&
-            input?.some((token) => operators.includes(token));
-        if (!checkForOperator) return;
+            input?.some((token) => operators.includes(token)) 
+
+        // Check if the last character is an operator
+        const isLastCharacterOperator=['+', '-', '*', '/'].includes(input.slice(-1)[0]);
+
+        if (!checkForOperator || isLastCharacterOperator) return;
 
         // new id
         const newId = Math.floor(Math.random() * 9999);
         // insert history
         setHistory((history) => [...history, { id:newId, input, result }]);
-
 
         // reverse string array
         const arrayResult=result.toString().split("");

@@ -5,14 +5,12 @@ import Button from './Button';
 import { FaBackspace } from 'react-icons/fa';
 import { PiPlusMinusBold } from 'react-icons/pi';
 
-function ButtonsContainer({ input, history, setInput, setHistory,result }) {
+function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) {
 
     function handleClickNumber(e) {
         const curToken = e.target.name;
         // control token
         if (!curToken || input.slice(-1)[0]==="%") return;
-
-        console.log( input.slice(-1))
 
         setInput((input) => [...input, curToken]);
     }
@@ -53,15 +51,10 @@ function ButtonsContainer({ input, history, setInput, setHistory,result }) {
     }
 
     function handleEqualBtn() {
-        setHistory(history=>[...history,{input,result}])
+        if(!result) return
+        const id=Math.floor(Math.random()*9999)
+        setHistory(history=>[...history,{id,input,result,}])
         setInput([result.toString()])
-        console.log(2)
-        console.log(history)
-        
-    }
-
-    function handleHistoryBtnClick() { 
-        // ? ya history button ya da kok alti ve s kimi riyazi emeller elave edecem 
     }
 
     return (
@@ -70,7 +63,7 @@ function ButtonsContainer({ input, history, setInput, setHistory,result }) {
             <Button value="c" onClick={handleClearBtn} color="gray" />
             <Button
                 value="🕒"
-                onClick={handleHistoryBtnClick}
+                onClick={onShowHistory}
                 color="gray"
             />
             <Button
@@ -81,7 +74,7 @@ function ButtonsContainer({ input, history, setInput, setHistory,result }) {
             />
             <Button
                 name="/"
-                value="/"
+                value="÷"
                 onClick={handleOperatorClick}
                 color="blue"
             />

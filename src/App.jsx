@@ -15,6 +15,8 @@ function App() {
     const [input, setInput] = useState([]);
     const [history, setHistory] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isHistory, setIsHistory] = useState(true);
+
 
     let result = calculate(input);
 
@@ -24,12 +26,20 @@ function App() {
         else document.getElementById('root').classList.remove('dark');
     }, [isDarkMode]);
 
+    // dark mode funtions
     function handleDarkMode() {
         setIsDarkMode(true);
     }
 
     function handleLightMode() {
         setIsDarkMode(false);
+    }
+    // history button functions
+    function handleHiddenHistory() {
+        setIsHistory(false);
+    }
+    function handleShowHistory(){
+        setIsHistory(true)
     }
 
     return (
@@ -39,7 +49,7 @@ function App() {
             }
         >
             {/* calculator container  start*/}
-            <div className="relative mx-auto flex h-[90vh] w-[700px] max-w-[95%] flex-col items-center justify-end rounded-3xl 
+            <div className="relative mx-auto flex h-[90vh] w-[700px] max-w-[95%] overflow-hidden flex-col items-center justify-end rounded-3xl 
             border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
                 {/* dark mode buttons */}
                 <Icons
@@ -55,15 +65,15 @@ function App() {
                 {/* inputs container  end*/}
 
                 {/* history */}
-                <History />
+                <History history={history} onCloseHistory={handleHiddenHistory}  isHistory={isHistory} />
 
                 {/* buttons */}
                 <ButtonsContainer
                     input={input}
                     setInput={setInput}
                     setHistory={setHistory}
-                    history={history}
                     result={result}
+                    onShowHistory={handleShowHistory}
                 />
             </div>
             {/* calculator container  end*/}

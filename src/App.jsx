@@ -17,7 +17,6 @@ function App() {
     const [isDarkMode, setIsDarkMode] = useState(true);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
-
     let result = calculate(input);
 
     useEffect(() => {
@@ -39,17 +38,16 @@ function App() {
     function handleHiddenHistory() {
         setIsHistoryOpen(false);
     }
-    function handleShowHistory(){
-        setIsHistoryOpen(true)
+    function handleShowHistory() {
+        setIsHistoryOpen(true);
     }
 
-
     // handle history item click
-    function handleHistoryItemClick(id){
-        const curClickHistoryItem=history?.filter(token=>token.id === id)
-        if(!curClickHistoryItem) return
+    function handleHistoryItemClick(id) {
+        const curClickHistoryItem = history?.filter((token) => token.id === id);
+        if (!curClickHistoryItem) return;
 
-        setInput(curClickHistoryItem[0].input)
+        setInput(curClickHistoryItem[0].input);
     }
 
     return (
@@ -59,8 +57,7 @@ function App() {
             }
         >
             {/* calculator container  start*/}
-            <div className="relative mx-auto flex h-[90vh] w-[700px] max-w-[95%] overflow-hidden flex-col items-center justify-end rounded-3xl 
-            border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
+            <div className="relative mx-auto flex h-[90vh] w-[700px] max-w-[95%] flex-col items-center justify-end overflow-hidden rounded-3xl border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
                 {/* dark mode buttons */}
                 <Icons
                     handleDarkMode={handleDarkMode}
@@ -75,7 +72,12 @@ function App() {
                 {/* inputs container  end*/}
 
                 {/* history */}
-                <History history={history} onCloseHistory={handleHiddenHistory}  isHistoryOpen={isHistoryOpen} onHistoryItemClick={handleHistoryItemClick} />
+                <History
+                    history={history}
+                    onCloseHistory={handleHiddenHistory}
+                    isHistoryOpen={isHistoryOpen}
+                    onHistoryItemClick={handleHistoryItemClick}
+                />
 
                 {/* buttons */}
                 <ButtonsContainer

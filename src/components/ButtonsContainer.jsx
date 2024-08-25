@@ -34,9 +34,9 @@ function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) 
         // if last token =current token  return
         if (lastCharacter === curOperator) return;
 
-        // if the operator is present change ,if not insert operator
+        // Replace the operator or, if there's a decimal point, change it; otherwise, insert the operator.
         setInput((input) =>
-            operators.includes(lastCharacter)
+            operators.includes(lastCharacter) || lastCharacter=== "."
                 ? input.slice(0, -1).concat(curOperator)
                 : input.concat(curOperator)
         );
@@ -50,8 +50,12 @@ function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) 
         setInput((input) => input.slice(0, -1));
     }
 
+    
     function handleEqualBtn() {
-        if(!result) return
+        const operators=['+', '-', '*', '/',"%"]
+         const checkForOperator= input.some(token=>operators.includes(token)) 
+        if(!checkForOperator ) return
+
         const id=Math.floor(Math.random()*9999)
         setHistory(history=>[...history,{id,input,result,}])
         setInput([result.toString()])

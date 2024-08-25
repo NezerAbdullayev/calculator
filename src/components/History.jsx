@@ -3,7 +3,8 @@ import HistoryItem from './HistoryItem';
 function History({ history,isHistoryOpen,onCloseHistory,onHistoryItemClick }) {
     
     return (
-        <div className={`absolute  overflow-hidden transition-all duration-300 top-0 z-40 h-full w-2/3 rounded-2xl border-r-2 border-[#b2a8a34a] bg-[#3f4047] shadow sm:w-1/2
+        <div className={`absolute  overflow-hidden transition-all duration-300 top-0 z-40 h-full w-2/3 rounded-2xl border-r-2
+             bg-[#c9c9c9] border-[#8e84844d] dark:border-[#b2a8a34a] dark:bg-[#3f4047] shadow sm:w-1/2
           ${isHistoryOpen ? "left-0" : " -left-2/3 sm:-left-1/2" }`}>
 
             {/* close button */}

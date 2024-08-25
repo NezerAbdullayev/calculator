@@ -3,7 +3,6 @@ import Button from './Button';
 
 // buttons
 import { FaBackspace } from 'react-icons/fa';
-import { PiPlusMinusBold } from 'react-icons/pi';
 
 function ButtonsContainer({ input, setInput, setHistory,result,onShowHistory }) {
 

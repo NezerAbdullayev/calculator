@@ -46,7 +46,7 @@ function App() {
 
     // handle history item click
     function handleHistoryItemClick(id){
-        const curClickHistoryItem=history.filter(token=>token.id === id)
+        const curClickHistoryItem=history?.filter(token=>token.id === id)
         if(!curClickHistoryItem) return
 
         setInput(curClickHistoryItem[0].input)

@@ -14,6 +14,7 @@ export function calculate(input) {
            number=""
            continue;
        }
+    //    input[i]=== number || "." ?  number +input[i]
        if (!isNaN(input[i]) || input[i] === '.') {
            number += input[i];
        } else {
@@ -73,10 +74,11 @@ export function evalFn(calcArray) {
     function processToken(token) {
         if (typeof token === 'number') {
             numbers.push(token);
-        } else if (['+', '-', '*', '÷', '%'].includes(token)) {
+        } else if (['+', '-', '*', '÷'].includes(token)) {
+
             while (
                 operators.length &&
-                precedence[operators[operators.length - 1]] >= precedence[token] 
+                precedence[operators.slice(-1)] >= precedence[token] 
             ) {
                 applyOperator();
             }

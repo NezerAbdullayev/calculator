@@ -1,46 +1,51 @@
-
 export function calculate(input) {
     // debugger;
-   if (!input) return;
+    if (!input) return;
 
-   // convert to a number
-   let convertArray = [];
-   let number = '';
-   let result;
+    // convert to a number
+    let convertArray = [];
+    let number = '';
 
-   for (let i = 0; i < input.length; i++) {
-       if(input[i]==="%"){
-           convertArray.push(Number(number)/100)
-           number=""
-           continue;
-       }
-    //    input[i]=== number || "." ?  number +input[i]
-       if (!isNaN(input[i]) || input[i] === '.') {
-           number += input[i];
-       } else {
-           if (number) {
-               convertArray.push(Number(number));
-               number = '';
-           }
-           convertArray.push(input[i]);
-       }
-   }
+    for (let i = 0; i < input.length; i++) {
+        const token = input[i];
 
-   if (number) {
-       convertArray.push(Number(number));
-   }
-   if (convertArray.length > 0) result = evalFn(convertArray);
+        if (token === '%') {
+            const calcToken = Number((Number(number) / 100).toFixed(6));
+            convertArray.push(calcToken);
+            number = '';
+            continue;
+        }
 
-   return result;
+        if (i === 0 && token === '-') {
+            number += token;
+            continue;
+        }
 
+        //    token=== number || "." ?  number +token
+        if (!isNaN(token) || token === '.') {
+            number += token;
+        } else {
+            if (number) {
+                convertArray.push(Number(number));
+                number = '';
+            }
+            convertArray.push(token);
+        }
+    }
+
+    if (number && number !== '-') {
+        convertArray.push(Number(number));
+    }
+
+    return convertArray;
 }
-
 
 export function evalFn(calcArray) {
     // debugger;
     const numbers = [];
     const operators = [];
     const precedence = { '+': 1, '-': 1, '*': 2, '÷': 2, '%': 2 };
+    let result;
 
     calcArray?.forEach((token) => {
         processToken(token);
@@ -51,7 +56,7 @@ export function evalFn(calcArray) {
 
     function applyOperator() {
         const operator = operators.pop();
-        const right = numbers.pop(); 
+        const right = numbers.pop();
         const left = numbers.pop();
         numbers.push(performOperation(operator, left, right));
     }
@@ -59,13 +64,13 @@ export function evalFn(calcArray) {
     function performOperation(operator, left, right) {
         switch (operator) {
             case '+':
-                return left + right;
+                return Number((left + right).toFixed(6));
             case '-':
-                return left - right;
+                return Number((left - right).toFixed(6));
             case '*':
-                return left * right;
+                return Number(left * right.toFixed(6));
             case '÷':
-                return left / right;
+                return Number((left / right).toFixed(6));
             default:
                 throw new Error(`Unknown operator: ${operator}`);
         }
@@ -75,10 +80,9 @@ export function evalFn(calcArray) {
         if (typeof token === 'number') {
             numbers.push(token);
         } else if (['+', '-', '*', '÷'].includes(token)) {
-
             while (
                 operators.length &&
-                precedence[operators.slice(-1)] >= precedence[token] 
+                precedence[operators.slice(-1)] >= precedence[token]
             ) {
                 applyOperator();
             }
@@ -90,8 +94,8 @@ export function evalFn(calcArray) {
         while (operators.length) {
             applyOperator();
         }
+        result = numbers[0];
     }
 
-    return numbers[0];
+    return result;
 }
-

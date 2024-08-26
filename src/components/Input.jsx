@@ -10,7 +10,6 @@ function Input({ type, value }) {
         }
     }
 
-
     useEffect(() => {
         if (inputScrollRef.current) {
             inputScrollRef.current.scrollLeft = inputScrollRef.current.scrollWidth;

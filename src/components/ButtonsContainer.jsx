@@ -1,4 +1,5 @@
 // components
+import { calculate } from '../eval';
 import Button from './Button';
 
 // buttons
@@ -19,12 +20,39 @@ function ButtonsContainer({
         const lastInputToken = input?.slice(-1)[0];
         // Skip if token is empty or last is "%"
         if (!curToken || lastInputToken === '%') return;
+
         // Prevent starting input with a decimal point if the input is empty
-        if (input.length === 0 && curToken === '.') return;
+
+        if (input.length === 0 && curToken === '.') {
+            setInput((input) => [...input, '0', '.']);
+            return;
+        }
+
         // Prevent adding consecutive decimal points
         if (lastInputToken === '.' && curToken === '.') return;
 
-        if(['+', '-', '*', '÷', '%'].includes(lastInputToken) && curToken===".") return
+        const allOperators = ['+', '-', '*', '÷', '%'];
+        if (allOperators.includes(lastInputToken) && curToken === '.') return;
+
+        // Check if there is a decimal point in the current number (after the last operator)
+        if (input.length > 0 || input[0] !== '-') {
+            const lastOperatorIndex = Math.max(
+                input.lastIndexOf('+'),
+                input.lastIndexOf('-'),
+                input.lastIndexOf('*'),
+                input.lastIndexOf('÷')
+            );
+
+            const currentNumber = input.slice(lastOperatorIndex + 1).join('');
+
+            if (currentNumber.includes('.') && curToken === '.') return;
+            if (curToken === '0' && currentNumber === '0') return;
+
+            if (curToken !== '0' && curToken !== '.' && currentNumber === '0') {
+                setInput((input) => [...input.slice(0, -1), curToken]);
+                return;
+            }
+        }
 
         setInput((input) => [...input, curToken]);
     }
@@ -32,19 +60,19 @@ function ButtonsContainer({
     // operator click function
     function handleOperatorClick(e) {
         const curOperator = e.target.name;
-        // control operator
         if (!curOperator) return;
-        // operators
+
         const operators = ['+', '-', '*', '÷'];
+        const checkOperator = ['+', '*', '÷'];
 
         // return if the first token is an operator
-        if (input.length === 0) return;
-
-        // cur input last token
-        const lastCharacter = input.slice(-1)[0];
+        if (input.length === 0 && checkOperator.includes(curOperator)) return;
 
         // checking for interest operator
         if (input.slice(-2)[0] === '%' && curOperator === '%') return;
+
+        //  input last operator
+        const lastCharacter = input.slice(-1)[0];
 
         // if last token =current token  return
         if (lastCharacter === curOperator) return;
@@ -58,7 +86,7 @@ function ButtonsContainer({
     }
 
     function handleClearBtn() {
-        setInput('');
+        setInput([]);
     }
 
     function handleBackpaceBtn() {
@@ -68,23 +96,25 @@ function ButtonsContainer({
     function handleEqualBtn() {
         const operators = ['+', '-', '*', '÷', '%'];
 
+        // Check if the last character is an operator
+        const isLastCharacterOperator = ['+', '*', '-', '÷'].includes(
+            input.slice(-1)[0]
+        );
+
         // Check if the input contains any operators
         const checkForOperator =
             input.length > 0 &&
-            input?.some((token) => operators.includes(token)) 
-
-        // Check if the last character is an operator
-        const isLastCharacterOperator=['+', '-', '*', '÷'].includes(input.slice(-1)[0]);
+            input.slice(1)?.some((token) => operators.includes(token));
 
         if (!checkForOperator || isLastCharacterOperator) return;
 
         // new id
         const newId = Math.floor(Math.random() * 9999);
         // insert history
-        setHistory((history) => [...history, { id:newId, input, result }]);
+        setHistory((history) => [...history, { id: newId, input, result }]);
 
         // reverse string array
-        const arrayResult=result.toString().split("");
+        const arrayResult = result.toString().split('');
 
         setInput([...arrayResult]);
     }

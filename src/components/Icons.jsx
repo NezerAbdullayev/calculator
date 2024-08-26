@@ -19,7 +19,7 @@ function Icons({ handleDarkMode, handleLightMode }) {
                 />
 
                 {/* absolute circle */}
-                <div className="absolute left-11 top-[3px] z-20 h-[25px] w-[25px] rounded-full bg-[#4E505F] transition-[left] duration-200 dark:left-1"></div>
+                <div className="absolute left-11 top-[3px] z-20 h-[25px] w-[25px] rounded-full bg-white dark:bg-[#4E505F] transition-[left] duration-200 dark:left-1"></div>
             </div>
         </div>
     );

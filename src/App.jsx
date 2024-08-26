@@ -7,7 +7,7 @@ import Icons from './components/Icons';
 import Input from './components/Input';
 
 // import eval fn
-import { calculate } from './eval';
+import { calculate,evalFn } from './eval';
 import History from './components/History';
 
 function App() {
@@ -16,8 +16,17 @@ function App() {
     const [history, setHistory] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(true);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+    const [result,setResult]=useState(null)
 
-    let result = calculate(input);
+
+    useEffect( ()=>{
+        const convertArray= input && calculate(input);
+        console.log(convertArray)
+        console.log(input)
+        const newResult= convertArray && evalFn(convertArray)
+        setResult(newResult)
+    },[input])
+
 
     useEffect(() => {
         if (isDarkMode === true)

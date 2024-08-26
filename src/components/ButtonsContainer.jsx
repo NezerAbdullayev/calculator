@@ -24,6 +24,8 @@ function ButtonsContainer({
         // Prevent adding consecutive decimal points
         if (lastInputToken === '.' && curToken === '.') return;
 
+        if(['+', '-', '*', '÷', '%'].includes(lastInputToken) && curToken===".") return
+
         setInput((input) => [...input, curToken]);
     }
 

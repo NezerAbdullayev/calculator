@@ -1,7 +1,7 @@
 function Button({ name, onClick, value, color }) {
     
     let baseClassnames =
-        'flex h-full items-center justify-center rounded-3xl text-2xl transition-all ' +
+        'flex h-full items-center justify-center rounded-3xl text-base sm:text-2xl transition-all ' +
         'sm:hover:ring sm:hover:ring-offset-1 sm:active:ring-offset-0 ';
 
     switch (color) {

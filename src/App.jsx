@@ -60,11 +60,11 @@ function App() {
     return (
         <div
             className={
-                'flex h-screen w-screen items-center justify-center bg-stone-500 dark:bg-stone-700'
+                'flex h-screen w-screen min-h[650px] items-center justify-center bg-stone-500 dark:bg-stone-700'
             }
         >
             {/* calculator container  start*/}
-            <div className="relative mx-auto flex h-[90vh] max-h-[700px] w-[700px] max-w-[95%] flex-col items-center justify-end overflow-hidden rounded-3xl border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
+            <div className="relative mx-auto flex h-[90vh] max-h-[700px] min-h-[550px] w-[700px] max-w-[95%]  flex-col items-center justify-end overflow-hidden rounded-3xl border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
                 {/* dark mode buttons */}
                 <Icons
                     handleDarkMode={handleDarkMode}

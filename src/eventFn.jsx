@@ -1,3 +1,6 @@
+const allOperators = ['+', '-', '*', '÷', '%'];
+
+// //////////////////////////////////////////////////////////
 
 
 // operator click
@@ -67,21 +70,13 @@ export function onClickNumber(curToken, input, setInput) {
         return;
     }
 
-    const allOperators = ['+', '-', '*', '÷', '%'];
     if (allOperators.includes(lastInputToken) && curToken === '.') return;
 
     // Check if there is a decimal point in the current number (after the last operator)
     if (input.length > 0 || input[0] !== '-') {
-        // Find the index of the last operator in the input
-        const lastOperatorIndex = Math.max(
-            input.lastIndexOf('+'),
-            input.lastIndexOf('-'),
-            input.lastIndexOf('*'),
-            input.lastIndexOf('÷')
-        );
 
         // Extract the current number after the last operator
-        const currentLastNumber = input.slice(lastOperatorIndex + 1).join('');
+        const currentLastNumber = curLastNumber(input)
 
         // Prevent adding another decimal point if the current number already has one
         if (currentLastNumber.includes('.') && curToken === '.') return;
@@ -103,7 +98,6 @@ export function onClickNumber(curToken, input, setInput) {
 
 // equal click
 export function onEqualBtn(input, result, setHistory, setInput) {
-    const operators = ['+', '-', '*', '÷', '%'];
 
     // Check if the last character is an operator
     const isLastCharacterOperator = ['+', '*', '-', '÷'].includes(
@@ -113,7 +107,7 @@ export function onEqualBtn(input, result, setHistory, setInput) {
     // Check if the input contains any operators
     const checkForOperator =
         input.length > 0 &&
-        input.slice(1)?.some((token) => operators.includes(token));
+        input.slice(1)?.some((token) => allOperators.includes(token));
 
     if (!checkForOperator || isLastCharacterOperator) return;
 
@@ -126,4 +120,22 @@ export function onEqualBtn(input, result, setHistory, setInput) {
     const arrayResult = result.toString().split('');
 
     setInput(arrayResult);
+}
+
+// /////////////////////////////////////////////////////
+
+
+
+function curLastNumber(input){
+    const lastOperatorIndex = Math.max(
+        input.lastIndexOf('+'),
+        input.lastIndexOf('-'),
+        input.lastIndexOf('*'),
+        input.lastIndexOf('÷')
+    );
+
+    // Extract the current number after the last operator
+    const currentLastNumber = input.slice(lastOperatorIndex + 1).join('');
+
+    return currentLastNumber
 }

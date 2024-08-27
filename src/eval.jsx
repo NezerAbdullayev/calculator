@@ -6,8 +6,12 @@ export function calculate(input) {
     let convertArray = [];
     let number = '';
 
+
+
     for (let i = 0; i < input.length; i++) {
+        // debugger;
         const token = input[i];
+        
 
         if (token === '%') {
             const calcToken = Number((Number(number) / 100).toFixed(6));
@@ -16,15 +20,16 @@ export function calculate(input) {
             continue;
         }
 
-        if (i === 0 && token === '-') {
-            number += token;
+        if (i === 0 && token === '-' ||  (['*', '÷'].includes(input[i - 1]) && token === '-') ) {
+            number += "-";
             continue;
         }
 
-        //    token=== number || "." ?  number +token
+        //    token=== number || "." ?   ---> number +token
         if (!isNaN(token) || token === '.') {
             number += token;
-        } else {
+        }
+         else {  
             if (number) {
                 convertArray.push(Number(number));
                 number = '';
@@ -33,7 +38,7 @@ export function calculate(input) {
         }
     }
 
-    if (number && number !== '-') {
+    if (number) {
         convertArray.push(Number(number));
     }
 
@@ -94,8 +99,10 @@ export function evalFn(calcArray) {
         while (operators.length) {
             applyOperator();
         }
-        result = numbers[0];
+        result =!isNaN(numbers[0]) && Number(numbers[0].toFixed(6));
     }
+
+    console.log(result,typeof result,"result")
 
     return result;
 }

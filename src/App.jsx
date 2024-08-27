@@ -18,16 +18,15 @@ function App() {
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const [result,setResult]=useState(null)
 
-
+    //calculate something whenever  result variable changes
     useEffect( ()=>{
-        const convertArray= input && calculate(input);
-        console.log(convertArray)
-        console.log(input)
-        const newResult= convertArray && evalFn(convertArray)
+        const parsedTokensArray= input.length && calculate(input);
+        const newResult= parsedTokensArray && evalFn(parsedTokensArray)
         setResult(newResult)
+        console.log(parsedTokensArray,input)
     },[input])
 
-
+    // dark mode 
     useEffect(() => {
         if (isDarkMode === true)
             document.getElementById('root').classList.add('dark');
@@ -94,6 +93,7 @@ function App() {
                     setInput={setInput}
                     setHistory={setHistory}
                     result={result}
+                    setResult={setResult}
                     onShowHistory={handleShowHistory}
                 />
             </div>

@@ -102,7 +102,5 @@ export function evalFn(calcArray) {
         result =!isNaN(numbers[0]) && Number(numbers[0].toFixed(6));
     }
 
-    console.log(result,typeof result,"result")
-
     return result;
 }

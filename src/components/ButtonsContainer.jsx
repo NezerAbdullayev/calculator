@@ -1,9 +1,6 @@
 // components
 import Button from './Button';
 
-// calulete funtion
-import { calculate } from '../eval';
-
 // buttons
 import { FaBackspace } from 'react-icons/fa';
 
@@ -12,9 +9,9 @@ function ButtonsContainer({
     setInput,
     setHistory,
     result,
-    setResult,
     onShowHistory,
 }) {
+
     // number click function
     function handleClickNumber(e) {
         const curToken = e.target.name;
@@ -44,7 +41,9 @@ function ButtonsContainer({
             );
 
             // Extract the current number after the last operator
-            const currentLastNumber = input.slice(lastOperatorIndex + 1).join('');
+            const currentLastNumber = input
+                .slice(lastOperatorIndex + 1)
+                .join('');
 
             // Prevent adding another decimal point if the current number already has one
             if (currentLastNumber.includes('.') && curToken === '.') return;
@@ -53,7 +52,11 @@ function ButtonsContainer({
             if (curToken === '0' && currentLastNumber === '0') return;
 
             // Replace leading zero with the current token if it's not zero
-            if (curToken !== '0' && curToken !== '.' && currentLastNumber === '0') {
+            if (
+                curToken !== '0' &&
+                curToken !== '.' &&
+                currentLastNumber === '0'
+            ) {
                 setInput((input) => [...input.slice(0, -1), curToken]);
                 return;
             }
@@ -126,28 +129,17 @@ function ButtonsContainer({
     function handleEqualBtn() {
         const operators = ['+', '-', '*', '÷', '%'];
 
-        const lastTokens=input.length >2  &&  calculate(input)
-        const lastEqual=lastTokens && lastTokens.slice(-2) && lastTokens.slice(-2).some(lastToken=>operators.includes(lastToken))
-        let lastCalc=lastEqual && lastTokens.slice(-2)
-
-
         // Check if the last character is an operator
         const isLastCharacterOperator = ['+', '*', '-', '÷'].includes(
             input.slice(-1)[0]
         );
-        if (isLastCharacterOperator) return;
 
         // Check if the input contains any operators
         const checkForOperator =
             input.length > 0 &&
             input.slice(1)?.some((token) => operators.includes(token));
 
-
-        if(!checkForOperator || !lastCalc) return;
-
-        if(lastCalc)
-            console.log(lastCalc)
-            setInput(input=>[...input,...lastCalc])
+        if (!checkForOperator || isLastCharacterOperator ) return;
 
         // new id
         const newId = Math.floor(Math.random() * 9999);
@@ -157,8 +149,9 @@ function ButtonsContainer({
         // reverse string array
         const arrayResult = result.toString().split('');
 
-        setInput([...arrayResult]);
+        setInput(arrayResult);
     }
+
 
     return (
         <div className="grid h-full max-h-[50%] w-full flex-1 grid-cols-4 grid-rows-5 gap-4">

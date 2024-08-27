@@ -23,7 +23,6 @@ function App() {
         const parsedTokensArray= input.length && calculate(input);
         const newResult= parsedTokensArray && evalFn(parsedTokensArray)
         setResult(newResult)
-        console.log(parsedTokensArray,input)
     },[input])
 
     // dark mode 
@@ -93,7 +92,6 @@ function App() {
                     setInput={setInput}
                     setHistory={setHistory}
                     result={result}
-                    setResult={setResult}
                     onShowHistory={handleShowHistory}
                 />
             </div>

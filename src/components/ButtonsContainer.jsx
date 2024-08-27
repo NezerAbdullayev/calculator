@@ -11,7 +11,6 @@ function ButtonsContainer({
     result,
     onShowHistory,
 }) {
-
     // number click function
     function handleClickNumber(e) {
         const curToken = e.target.name;
@@ -85,8 +84,6 @@ function ButtonsContainer({
             return;
 
         // checking for interest operator
-        // if (input.slice(-2)[0] === '%' && curOperator === '%') return;
-
         if (isNaN(input.slice(-1)) && curOperator === '%') return;
 
         //  input last operator
@@ -103,9 +100,9 @@ function ButtonsContainer({
 
         // Prevent inserting another operator after '-'
         if (
-            input.length > 1 &&
-            ['*', '÷'].includes(input.slice(-2)[0]) &&
-            ['-'].includes(curOperator)
+            input.length > 1 &&  //2*4 
+            ['*', '÷'].includes(input.slice(-2)[0]) && lastCharacter==="-" &&
+            curOperator !== '-' &&  checkOperator.includes(curOperator)
         ) {
             return;
         }
@@ -139,7 +136,7 @@ function ButtonsContainer({
             input.length > 0 &&
             input.slice(1)?.some((token) => operators.includes(token));
 
-        if (!checkForOperator || isLastCharacterOperator ) return;
+        if (!checkForOperator || isLastCharacterOperator) return;
 
         // new id
         const newId = Math.floor(Math.random() * 9999);
@@ -151,7 +148,6 @@ function ButtonsContainer({
 
         setInput(arrayResult);
     }
-
 
     return (
         <div className="grid h-full max-h-[50%] w-full flex-1 grid-cols-4 grid-rows-5 gap-4">

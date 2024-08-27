@@ -60,7 +60,7 @@ function App() {
     return (
         <div
             className={
-                'flex h-screen w-screen min-h[650px] items-center justify-center bg-stone-500 dark:bg-stone-700'
+                'flex h-screen w-screen min-h-[650px] items-center justify-center bg-stone-500 dark:bg-stone-700'
             }
         >
             {/* calculator container  start*/}

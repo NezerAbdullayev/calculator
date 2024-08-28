@@ -14,6 +14,10 @@ function ButtonsContainer({
 }) {
     // number click function
     function handleClickNumber(e) {
+        const checkInfinity=checkInfinityFn()
+
+        if(checkInfinity) return
+
         const curToken = e.target.name;
 
         onClickNumber(curToken, input, setInput);
@@ -21,6 +25,10 @@ function ButtonsContainer({
 
     // operator click function
     function handleOperatorClick(e) {
+        const checkInfinity=checkInfinityFn()
+
+        if(checkInfinity) return
+
         const curOperator = e.target.name;
         if (!curOperator) return;
 
@@ -32,12 +40,24 @@ function ButtonsContainer({
     }
 
     function handleBackpaceBtn() {
+        const checkInfinity=checkInfinityFn()
+
+        if(checkInfinity) return
+
         setInput((input) => input.slice(0, -1));
     }
 
     function handleEqualBtn() {
-        if(result == "Infinity" || result=="-Infinity") return
         onEqualBtn(input, result, setHistory, setInput);
+    }
+
+
+    function checkInfinityFn(){
+        const inputStringToken= input.length && input?.toString().replaceAll(",","")
+
+        const IsInfinity=  inputStringToken== "Infinity" 
+
+        return IsInfinity
     }
 
     return (

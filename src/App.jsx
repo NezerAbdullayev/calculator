@@ -73,8 +73,8 @@ function App() {
 
                 {/* inputs container start */}
                 <div className="flex w-full flex-col">
-                    <Input type="calculation" value={result || 0} />
-                    <Input type="result" value={input} />
+                    <Input type="calculation" value={result || 0} setInput={setInput}/>
+                    <Input type="result" value={input} setInput={setInput} />
                 </div>
                 {/* inputs container  end*/}
 

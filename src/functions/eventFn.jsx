@@ -8,6 +8,7 @@ export function onOperatorClick(curOperator, input, setInput) {
     const operators = ['+', '-', '*', '÷'];
     const checkOperator = ['+', '*', '÷', '%'];
 
+
     // return if the first token is an operator
     if (input.length === 0 && checkOperator.includes(curOperator)) return;
 
@@ -70,7 +71,10 @@ export function onClickNumber(curToken, input, setInput) {
         return;
     }
 
-    if (allOperators.includes(lastInputToken) && curToken === '.') return;
+    if (allOperators.includes(lastInputToken) && curToken === '.'){
+        setInput(input=>[...input,"0","."])
+        return
+    }
 
     // Check if there is a decimal point in the current number (after the last operator)
     if (input.length > 0 || input[0] !== '-') {

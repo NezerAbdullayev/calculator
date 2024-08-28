@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 
 // import components
 import ButtonsContainer from './components/ButtonsContainer';
-import Icons from './components/Icons';
+import ChangeMode from './components/ChangeMode';
 import Input from './components/Input';
 
 // import eval fn
-import { calculate,evalFn } from './eval';
-import History from './components/History';
+import { calculate,evalFn } from './functions/eval';
+import History from './components/history/History';
 
 function App() {
     // state
@@ -66,7 +66,7 @@ function App() {
             {/* calculator container  start*/}
             <div className="relative mx-auto flex h-[90vh] max-h-[700px] min-h-[550px] w-[700px] max-w-[95%]  flex-col items-center justify-end overflow-hidden rounded-3xl border-4 border-double border-[#9e98a4] bg-[#f1f2f3] p-5 pt-10 transition-all dark:border-stone-700 dark:bg-stone-900">
                 {/* dark mode buttons */}
-                <Icons
+                <ChangeMode
                     handleDarkMode={handleDarkMode}
                     handleLightMode={handleLightMode}
                 />

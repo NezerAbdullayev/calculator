@@ -1,7 +1,7 @@
 import { MdDarkMode } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
 
-function Icons({ handleDarkMode, handleLightMode }) {
+function ChangeMode({ handleDarkMode, handleLightMode }) {
     return (
         <div
             className={`mb-auto flex h-[10%] justify-center justify-self-start`}
@@ -25,4 +25,4 @@ function Icons({ handleDarkMode, handleLightMode }) {
     );
 }
 
-export default Icons;
+export default ChangeMode;

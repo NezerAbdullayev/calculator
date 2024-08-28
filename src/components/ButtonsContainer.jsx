@@ -1,5 +1,5 @@
 // components
-import { onClickNumber, onEqualBtn, onOperatorClick } from '../eventFn';
+import { onClickNumber, onEqualBtn, onOperatorClick } from '../functions/eventFn';
 import Button from './Button';
 
 // buttons
@@ -36,6 +36,7 @@ function ButtonsContainer({
     }
 
     function handleEqualBtn() {
+        if(result == "Infinity" || result=="-Infinity") return
         onEqualBtn(input, result, setHistory, setInput);
     }
 

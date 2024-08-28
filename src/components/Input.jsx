@@ -18,7 +18,11 @@ function Input({ type, value }) {
 
 
     // string input value
-    const stringInputValue = value.toString().replaceAll(',', '');
+
+
+    let stringInputValue = value.toString().replaceAll(',', '');
+    if(stringInputValue=="Infinity" || stringInputValue== "-Infinity" )  stringInputValue="ERROR"
+
 
     let classname = 'mb-4 w-full transition-all bg-transparent px-2 text-end ';
 
